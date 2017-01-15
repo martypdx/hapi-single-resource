@@ -1,24 +1,6 @@
-'use strict';
+const app = require('./lib/app');
+app.byQuietLint = true;
 
-const Hapi = require('hapi');
-
-const server = new Hapi.Server();
-server.connection({
-  host: 'localhost',
-  port: 8000
-});
-
-server.route({
-  method: 'GET',
-  path: '/hello',
-  handler: function (request, reply) {
-    return reply('hello world');
-  }
-});
-
-server.start((err) => {
-  if(err) {
-    throw err;
-  }
-  console.log('Server running at: ', server.info.uri);
-});
+const mongoose = require('./lib/mongoose');
+const connection = mongoose('mongodb://localhost/dogbreeds');
+connection.byQuietLint = true;
